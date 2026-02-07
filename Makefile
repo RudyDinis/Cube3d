@@ -1,7 +1,8 @@
 NAME = Cube3d
 LIBFT = utils/libft
 SRC = utils/gnl/get_next_line_utils.c utils/gnl/get_next_line.c \
-		src/main.c
+		src/main.c src/temp/map.c \
+		src/player/player.c
 OBJ := $(SRC:%.c=%.o)
 
 CC = cc -std=c11
