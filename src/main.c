@@ -12,21 +12,30 @@
 
 #include "../includes/cube3d.h"
 
-int	load_img(t_data *data)
+int load_img(t_data *data)
 {
-	int	img_width;
-	int	img_height;
+    int img_width;
+    int img_height;
+    int bits_per_pixel;
+    int size_line;
+    int endian;
 
-	data->minimap->wall = mlx_xpm_file_to_image(data->mlx,
-			"./src/img/wall.xpm", &img_width, &img_height);
-	if (!data->minimap->wall)
-		return (1);
-	data->minimap->ground = mlx_xpm_file_to_image(data->mlx,
-			"./src/img/ground.xpm", &img_width, &img_height);
-	if (!data->minimap->ground)
-		return (1);
-	return (0);
+    data->minimap->wall = mlx_xpm_file_to_image(data->mlx,
+            "./src/img/wall.xpm", &img_width, &img_height);
+    if (!data->minimap->wall)
+        return (1);
+    data->minimap->wall_addr = mlx_get_data_addr(
+        data->minimap->wall,  &bits_per_pixel, &size_line, &endian
+    );
+	data->minimap->wall_bpp = bits_per_pixel;
+	data->minimap->wall_size_line = size_line;
+    data->minimap->ground = mlx_xpm_file_to_image(data->mlx,
+            "./src/img/ground.xpm", &img_width, &img_height);
+    if (!data->minimap->ground)
+        return (1);
+    return (0);
 }
+
 
 void	load_minimap(t_data *data)
 {
@@ -77,8 +86,8 @@ int	main(void)
 
 
 
-	data->map->width = 10;
-	data->map->height = 5;
+	data->map->width = 20;
+	data->map->height = 10;
 
 	srand(time(NULL));
 	data->map->map = generate_map(data->map->width, data->map->height);
@@ -90,10 +99,19 @@ int	main(void)
 
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello word!");
+	data->vision.img = mlx_new_image(data->mlx, 1920, 1080);
+	data->vision.addr = mlx_get_data_addr(data->vision.img, &data->vision.bits_per_pixel, &data->vision.line_length, &data->vision.endian);
 	if (load_img(data) == 1)
 		return (1);
-	load_minimap(data);
 	init_player(data);
+	raycasting(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->vision.img, 0, 0);
+	draw_player_arrow(data, 0);
+	load_minimap(data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
+	mlx_loop_hook(data->mlx, loop_hook, data);
+	mlx_hook(data->mlx_win, 17, 0, close_hook, data);
 	mlx_loop(data->mlx);
 	return (0);
 }
