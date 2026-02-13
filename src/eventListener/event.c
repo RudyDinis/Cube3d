@@ -40,21 +40,21 @@ void	left_right(t_data *data, double *dx, double *dy, double rad)
 {
 	if (data->keys.left)
 	{
-		*dx += cos(rad + 3.14159265/2) * 1;
-		*dy += -sin(rad + 3.14159265/2) * 1;
+		*dx += cos(rad - 3.14159265 / 2);
+		*dy += sin(rad - 3.14159265 / 2);
 	}
 	if (data->keys.right)
 	{
-		*dx += cos(rad - 3.14159265/2) * 1;
-		*dy += -sin(rad - 3.14159265/2) * 1;
+		*dx += cos(rad + 3.14159265/2) * 1;
+		*dy += sin(rad + 3.14159265/2) * 1;
 	}
 
-	data->player->x += *dx;
-	data->player->y += *dy;
-	if (*dx != 0.0 || *dy != 0.0)
+	if (can_moove(data, *dx, *dy))
 	{
-    	render_frame(data);
+		data->player->x += *dx;
+		data->player->y += *dy;
 	}
+    render_frame(data);
 }
 
 int loop_hook(t_data *data)
@@ -67,18 +67,18 @@ int loop_hook(t_data *data)
 	dy = 0;
 	rad = data->player->r * 3.14159265 / 180.0;
 	if (data->keys.view_left)
-		rotate_player(data, 2.5);
+		data->player->r -= 2.5;
 	if (data->keys.view_right)
-		rotate_player(data, -2.5);
+		data->player->r += 2.5;
 	if (data->keys.up)
 	{
-		dx += cos(rad) * 1;
-		dy += -sin(rad) * 1;
+		dx += cos(rad);
+		dy += sin(rad);
 	}
 	if (data->keys.down)
 	{
-		dx += -cos(rad) * 1;
-		dy += sin(rad) * 1;
+		dx -= cos(rad);
+		dy -= sin(rad);
 	}
 	left_right(data, &dx, &dy, rad);
 	return (0);

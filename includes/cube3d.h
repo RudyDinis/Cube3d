@@ -28,6 +28,21 @@ void print_map(char **map, int height);
 void free_map(char **map, int height);
 
 
+typedef struct s_ray
+{
+	int 	col;
+    double 	angle;
+    double 	distance;
+    int 	max;
+    double 	x;
+	double 	y;
+    int		mapX;
+	int 	mapY;
+    double 	distCorr;
+    double 	wallHeight;
+} t_ray;
+
+
 typedef struct s_keys
 {
 	int	view_left;
@@ -37,7 +52,6 @@ typedef struct s_keys
 	int up;
 	int down;
 }	t_keys;
-
 
 typedef struct s_img {
 	void	*img;
@@ -83,13 +97,14 @@ typedef struct s_data
 	t_player	*player;
 }	t_data;
 
-void	init_player(t_data *data);
 int		close_hook(void *param);
 int 	key_press(int keycode, t_data *data);
 int 	key_release(int keycode, t_data *data);
 int 	loop_hook(t_data *data);
+int 	can_moove(t_data *data, double dx, double dy);
+
+void	init_player(t_data *data);
 void	draw_player_arrow(t_data *data, int width);
-void    rotate_player(t_data *data, double r);
 void    raycasting(t_data *data);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	load_minimap(t_data *data);

@@ -14,14 +14,13 @@
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
-	char	*dst;
-	if (x > 1920)
-		printf("starfoula");
-	if (y > 1920)
-		printf("oulala");
+    if (x < 0 || x >= 1920 || y < 0 || y >= 1080)
+        return;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+    char *dst = data->addr
+        + (y * data->line_length + x * (data->bits_per_pixel / 8));
+
+    *(unsigned int*)dst = color;
 }
 
 void	background(t_data *data)
@@ -36,7 +35,7 @@ void	background(t_data *data)
 		y = 0;
 		while (y < 32)
 		{
-			my_mlx_pixel_put(&data->player->data_img, x, y, 0x000000);
+			my_mlx_pixel_put(&data->player->data_img, x, y, 0x77b5fe);
 			y++;
 		}
 		x++;
@@ -52,7 +51,7 @@ void	draw_player_arrow(t_data *data, int width)
 	int		j;
 
 	i = 0;
-	angle_rad = (data->player->r * 3.14159265) / 180.0;
+	angle_rad = (-data->player->r * 3.14159265) / 180.0;
 	background(data);
 	while (i < 14)
 	{
@@ -68,7 +67,8 @@ void	draw_player_arrow(t_data *data, int width)
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win,
-		data->player->data_img.img, (int)data->player->x, (int)data->player->y);
+    data->player->data_img.img, (int)(data->player->x - 16), (int)(data->player->y - 16));
+
 }
 
 void	init_player(t_data *data)
