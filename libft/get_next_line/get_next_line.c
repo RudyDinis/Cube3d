@@ -1,0 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/04 14:58:23 by bbouarab          #+#    #+#             */
+/*   Updated: 2026/02/16 14:54:26 by bbouarab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+int	check_newline(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	if (!line)
+		return (1);
+	while (line[i])
+	{
+		if (line[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*get_next_char(int fd)
+{
+	char		*buf;
+	long long	ret;
+
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
+	ret = read(fd, (void *)buf, BUFFER_SIZE);
+	if (ret <= 0)
+	{
+		if (g_stop)
+		{
+			free(buf);
+			return (NULL);
+		}
+		free(buf);
+		return (NULL);
+	}
+	buf[ret] = 0;
+	return (buf);
+}
+
+char	*fill_line(int fd, char **stash, int reset)
+{
+	char		*new_line;
+	char		*temp;
+	static int	tour = 0;
+
+	if (reset)
+		tour = 0;
+	if (tour == 0)
+	{
+		*stash = get_next_char(fd);
+		if (!*stash)
+			return (NULL);
+		tour++;
+		return (*stash);
+	}
+	else
+	{
+		temp = get_next_char(fd);
+		if (!temp)
+			return (NULL);
+		new_line = ft_strjoin_gnl(*stash, temp);
+		free(temp);
+		free(*stash);
+		*stash = new_line;
+		return (new_line);
+	}
+}
+
+char	*get_next_line(int fd, int reset)
+{
+	static char	*stash[1024] = NULL;
+	char		*line;
+	char		*new_line;
+
+	if (reset)
+	{
+		if (stash[fd])
+			free(stash[fd]);
+		if (reset == 2)
+			return (stash[fd] = NULL, NULL);
+		stash[fd] = NULL;
+	}
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	line = fill_line(fd, &stash[fd], reset);
+	while (line && !check_newline(line))
+		line = fill_line(fd, &stash[fd], reset);
+	if (!line)
+	{
+		if (!stash[fd] || !stash[fd][0])
+			return (NULL);
+		new_line = ft_strdup_newline(stash[fd], &stash[fd], 1);
+		return (new_line);
+	}
+	return (new_line = ft_strdup_newline(line, &stash[fd], 1), new_line);
+}

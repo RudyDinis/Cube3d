@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/07 19:35:43 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/16 11:39:24 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	init(t_data *data)
 	return (0);
 }
 
+
 int	main(void)
 {
 	t_data	*data;
@@ -83,19 +84,12 @@ int	main(void)
 	if (init(data) == 1)
 		return (1);
 
-
-
-
 	data->map->width = 20;
 	data->map->height = 10;
 
 	srand(time(NULL));
 	data->map->map = generate_map(data->map->width, data->map->height);
 	print_map(data->map->map, data->map->height);
-
-
-
-
 
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello word!");
