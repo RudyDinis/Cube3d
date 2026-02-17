@@ -6,7 +6,7 @@
 /*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/16 11:55:56 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:17:43 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ typedef struct s_data
 	t_minimap	*minimap;
 	t_player	*player;
 }	t_data;
+
+typedef struct s_xpm_data
+{
+	char **textures;
+	int number_of_color;
+}	t_xpm_data;
 
 int		close_hook(void *param);
 int 	key_press(int keycode, t_data *data);

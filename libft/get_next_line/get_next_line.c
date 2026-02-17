@@ -6,7 +6,7 @@
 /*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:58:23 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/16 14:54:26 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:43:57 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ char	*get_next_char(int fd)
 	ret = read(fd, (void *)buf, BUFFER_SIZE);
 	if (ret <= 0)
 	{
-		if (g_stop)
-		{
-			free(buf);
-			return (NULL);
-		}
 		free(buf);
 		return (NULL);
 	}
@@ -82,7 +77,7 @@ char	*fill_line(int fd, char **stash, int reset)
 
 char	*get_next_line(int fd, int reset)
 {
-	static char	*stash[1024] = NULL;
+	static char	*stash[1024];
 	char		*line;
 	char		*new_line;
 

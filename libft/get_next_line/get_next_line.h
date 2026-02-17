@@ -6,7 +6,7 @@
 /*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:58:23 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/01/19 16:25:15 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:43:17 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../../minishell.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000
