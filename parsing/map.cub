@@ -1,7 +1,7 @@
-NO ../src/img/ground.xpm
-SO ../src/img/ground.xpm
-WE ../src/img/ground.xpm
-EA ../src/img/ground.xpm
+NO ../src/img/wall.xpm
+SO ../src/img/wall.xpm
+WE ../src/img/wall.xpm
+EA ../src/img/wall.xpm
 
 F 220,100,0
 C 225,30,0

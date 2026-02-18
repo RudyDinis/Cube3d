@@ -64,8 +64,6 @@ int check_xpm(char *texture, char *ID)
 	count = 0;
 	fd = open(texture, O_RDONLY);
 	line = get_next_line(fd, 0);
-	if (*line != '\n')
-		count++;
 	while (line)
 	{
 		while (*line == '\n')
@@ -75,14 +73,16 @@ int check_xpm(char *texture, char *ID)
 			if (!line)
 				break ;
 		}
-		free(line);
-		line = get_next_line(fd, 0);
-		if (line && count == 1)
+		if (!line)
+			break ;
+		if (line && *line != '\n' && count == 1)
 		{
 			if (check_xpm_size_settings(line, ID) == 1)
 				return (free(line), 1);
 			break ;
 		}
+		free(line);
+		line = get_next_line(fd, 0);
 		count++;
 	}
 	if (line)

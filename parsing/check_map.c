@@ -23,6 +23,37 @@ int check_map_extension(char *path)
 	return 0;
 }
 
+size_t get_map_size(int fd)
+{
+	char *map;
+	size_t len;
+
+	len = 0;
+	map = get_next_line(fd, 0);
+	while (map && *map == '\n')
+	{
+		free(map);
+		map = get_next_line(fd, 0);
+	}
+	while (map)
+	{
+		len += ft_strlen(map);
+		if (len > INT_MAX) //TODO PRINT UN MESSAGE DERREUR
+			return (free(map), get_next_line(fd, 1), exit(1), 1);
+		free(map);
+		map = get_next_line(fd, 0);
+	}
+	close(fd);
+	return len;
+}
+
+char *fill_map(int fd, char *map)
+{
+	char *map;
+	size_t size;
+	fd = open(map, O_RDONLY);
+}
+
 void check_map(char *map)
 {
 	int fd;
@@ -40,6 +71,8 @@ void check_map(char *map)
 	}
 	if (check_identifier(fd) == 1)
 		exit(1);
+
+
 	printf("Valid !");
 }
 
