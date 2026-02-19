@@ -49,9 +49,86 @@ size_t get_map_size(int fd)
 
 char *fill_map(int fd, char *map)
 {
-	char *map;
+	char *copy;
+	char *gnl;
 	size_t size;
+	size_t i;
+	size_t j;
+
+	j = 0,
+	i = 0;
+	size = get_map_size(fd);
 	fd = open(map, O_RDONLY);
+	check_identifier(fd);
+	copy = ft_calloc(size + 1, 1);
+	gnl = get_next_line(fd, 0);
+	while (gnl && *gnl == '\n')
+	{
+		free(gnl);
+		gnl = get_next_line(fd, 0);
+	}
+	while (gnl)
+	{
+		ft_memcpy(&copy[i], gnl, ft_strlen(gnl));
+		i += ft_strlen(gnl);
+		while (j < i && copy[j])
+		{
+			if (copy[j] == ' ')
+				copy[j] = '5';
+			j++;
+		}
+		free(gnl);
+		gnl = get_next_line(fd, 0);
+	}
+	close(fd);
+	return copy;
+}
+
+
+int check_closed(char *map)
+{
+	int i;
+	int y;
+	int size;
+	int line;
+	char **split;
+
+	line = 0;
+	i = 0;
+	size = 0;
+	split = ft_split(map, "\n");
+	if (!split)
+		return 0; //TODO gérer l'erreur ici
+	while (split[i])
+	{
+		y = 0;
+		ft_printf("%s\n", split[i]);
+		while (split[i][y])
+		{
+			if (split[i][y] == '0')
+			{
+				if (i == 0 || !split[i + 1])
+				{
+					ft_printf_error("WRONG"); //TODO faire ça bien
+					return 1;
+				}
+				else if (y == 0 || !split[i][y + 1])
+				{
+					ft_printf_error("WRONG"); //TODO faire ça bien
+					return 1;
+				}
+				else if (split[i][y + 1] == '5' || split[i][y - 1] == '5' || split[i + 1][y] == '5' || split[i - 1][y] == '5')
+				{
+					ft_printf_error("WRONG"); //TODO faire ça bien
+					return 1;
+				}
+			}
+			y++;
+		}
+		i++;
+	}
+	free_everything((void **)split);
+	return 0;
 }
 
 void check_map(char *map)
@@ -71,10 +148,11 @@ void check_map(char *map)
 	}
 	if (check_identifier(fd) == 1)
 		exit(1);
-
-
-	printf("Valid !");
+	char *copy = fill_map(fd, map);
+	//printf("%s\n", copy);
+	check_closed(copy);
 }
+
 
 int main(int argc, char **argv)
 {
