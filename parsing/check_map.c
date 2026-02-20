@@ -47,7 +47,7 @@ size_t get_map_size(int fd)
 	return len;
 }
 
-char *fill_map(int fd, char *map)
+char *fill_map(int fd, char *map, t_id *id)
 {
 	char *copy;
 	char *gnl;
@@ -59,7 +59,7 @@ char *fill_map(int fd, char *map)
 	i = 0;
 	size = get_map_size(fd);
 	fd = open(map, O_RDONLY);
-	check_identifier(fd);
+	check_identifier(fd, id);
 	copy = ft_calloc(size + 1, 1);
 	gnl = get_next_line(fd, 0);
 	while (gnl && *gnl == '\n')
@@ -131,7 +131,7 @@ int check_closed(char *map)
 	return 0;
 }
 
-void check_map(char *map)
+void check_map(char *map, t_id *id)
 {
 	int fd;
 
@@ -146,17 +146,38 @@ void check_map(char *map)
 		ft_printf_error("Error\n%s: wrong file extension", map);
 		exit(1);
 	}
-	if (check_identifier(fd) == 1)
+	if (check_identifier(fd, id) == 1)
 		exit(1);
-	char *copy = fill_map(fd, map);
+	printf("Valid !");
+	//char *copy = fill_map(fd, map, id);
 	//printf("%s\n", copy);
-	check_closed(copy);
+	//check_closed(copy);
 }
 
+t_id *malloc_id(void)
+{
+	t_id *id;
+	int i;
+
+	i = 0;
+	id = ft_calloc(1, sizeof(t_id));
+	id->id = ft_calloc(6 + 1, sizeof(char *));
+	id->id[0] = ft_strdup("NO");
+	id->id[1] = ft_strdup("SO");
+	id->id[2] = ft_strdup("EA");
+	id->id[3] = ft_strdup("WE");
+	id->id[4] = ft_strdup("F");
+	id->id[5] = ft_strdup("C");
+	id->done = ft_calloc(6 + 1, sizeof(char *));
+	return id;
+}
 
 int main(int argc, char **argv)
 {
 	if (argc != 2)
 		return 1;
-	check_map(argv[1]);
+	t_id *id;
+
+	id = malloc_id();
+	check_map(argv[1], id);
 }

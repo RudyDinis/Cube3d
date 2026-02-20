@@ -1,10 +1,16 @@
-NO ../src/img/wall.xpm
-SO ../src/img/wall.xpm
-WE ../src/img/wall.xpm
+WE       ../src/img/wall.xpm
+
+       NO                        ../src/img/wall.xpm
+
+SO        ../src/img/wall.xpm
 EA ../src/img/wall.xpm
 
 F 220,100,0
 C 225,30,0
+
+
+SA        ../src/img/wall.xpm
+
 
         1111111111111111111111111
         1000000000110000000000001
