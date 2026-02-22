@@ -6,36 +6,11 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/07 19:35:43 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/22 20:00:35 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
-
-int load_img(t_data *data)
-{
-    int img_width;
-    int img_height;
-    int bits_per_pixel;
-    int size_line;
-    int endian;
-
-    data->minimap->wall = mlx_xpm_file_to_image(data->mlx,
-            "./src/img/wall.xpm", &img_width, &img_height);
-    if (!data->minimap->wall)
-        return (1);
-    data->minimap->wall_addr = mlx_get_data_addr(
-        data->minimap->wall,  &bits_per_pixel, &size_line, &endian
-    );
-	data->minimap->wall_bpp = bits_per_pixel;
-	data->minimap->wall_size_line = size_line;
-    data->minimap->ground = mlx_xpm_file_to_image(data->mlx,
-            "./src/img/ground.xpm", &img_width, &img_height);
-    if (!data->minimap->ground)
-        return (1);
-    return (0);
-}
-
 
 void	load_minimap(t_data *data)
 {
@@ -53,6 +28,11 @@ void	load_minimap(t_data *data)
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 					data->minimap->wall, x * 32, y * 32);
 			}
+			if (data->map->map[y][x] == 'P')
+			{
+				mlx_put_image_to_window(data->mlx, data->mlx_win,
+					data->minimap->door, x * 32, y * 32);
+			}
 			x++;
 		}
 		y++;
@@ -63,13 +43,13 @@ int	init(t_data *data)
 {
 	data->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (!data->minimap)
-		return (1);
+		return (error_handler(data, 0), 1);
 	data->map = ft_calloc(1, sizeof(t_map));
 	if (!data->map)
-		return (1);
+		return (error_handler(data, 1), 1);
 	data->player = ft_calloc(1, sizeof(t_player));
 	if (!data->player)
-		return (1);
+		return (error_handler(data, 2), 1);
 	return (0);
 }
 
@@ -82,25 +62,19 @@ int	main(void)
 		return (1);
 	if (init(data) == 1)
 		return (1);
-
-
-
-
+	//start temp
 	data->map->width = 20;
 	data->map->height = 10;
-
 	srand(time(NULL));
 	data->map->map = generate_map(data->map->width, data->map->height);
 	print_map(data->map->map, data->map->height);
-
-
-
-
-
+	//end temp
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello word!");
 	data->vision.img = mlx_new_image(data->mlx, 1920, 1080);
-	data->vision.addr = mlx_get_data_addr(data->vision.img, &data->vision.bits_per_pixel, &data->vision.line_length, &data->vision.endian);
+	data->vision.addr = mlx_get_data_addr(data->vision.img,
+			&data->vision.bits_per_pixel, &data->vision.line_length,
+			&data->vision.endian);
 	if (load_img(data) == 1)
 		return (1);
 	init_player(data);

@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moove.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/22 14:24:59 by rdinis            #+#    #+#             */
+/*   Updated: 2026/02/22 16:24:45 by rdinis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cube3d.h"
 
-int can_moove(t_data *data, double dx, double dy)
+int	can_moove(t_data *data, double dx, double dy)
 {
-	(void) data;
-	
-	if (data->map->map[(int)(data->player->y + dy) / 32][(int)(data->player->x + dx) / 32] != '1')
+	if (data->map->map[(int)(data->player->y + dy) / 32]
+		[(int)(data->player->x + dx) / 32] != '1')
 		return (1);
 	return (0);
 }

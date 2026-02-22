@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/22 14:18:42 by rdinis            #+#    #+#             */
+/*   Updated: 2026/02/22 19:23:15 by rdinis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cube3d.h"
 
-int key_press(int keycode, t_data *data)
+int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 65361)
 		data->keys.view_left = 1;
@@ -19,7 +31,7 @@ int key_press(int keycode, t_data *data)
 	return (0);
 }
 
-int key_release(int keycode, t_data *data)
+int	key_release(int keycode, t_data *data)
 {
 	if (keycode == 65361)
 		data->keys.view_left = 0;
@@ -45,23 +57,22 @@ void	left_right(t_data *data, double *dx, double *dy, double rad)
 	}
 	if (data->keys.right)
 	{
-		*dx += cos(rad + 3.14159265/2) * 1;
-		*dy += sin(rad + 3.14159265/2) * 1;
+		*dx += cos(rad + 3.14159265 / 2) * 1;
+		*dy += sin(rad + 3.14159265 / 2) * 1;
 	}
-
 	if (can_moove(data, *dx, *dy))
 	{
 		data->player->x += *dx;
 		data->player->y += *dy;
 	}
-    render_frame(data);
+	render_frame(data);
 }
 
-int loop_hook(t_data *data)
+int	loop_hook(t_data *data)
 {
-	double  rad;
-	double  dx;
-	double  dy;
+	double	rad;
+	double	dx;
+	double	dy;
 
 	dx = 0;
 	dy = 0;
@@ -86,10 +97,9 @@ int loop_hook(t_data *data)
 
 int	close_hook(void *param)
 {
-    t_data  *data;
+	t_data	*data;
 
-    data = param;
-	mlx_destroy_window(data->mlx, data->mlx_win);
-    exit(1);
+	data = param;
+	exit_game(data);
 	return (0);
 }

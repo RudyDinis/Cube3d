@@ -71,10 +71,3 @@ void print_map(char **map, int height)
     for (int y = 0; y < height; y++)
         printf("%s\n", map[y]);
 }
-
-void free_map(char **map, int height)
-{
-    for (int y = 0; y < height; y++)
-        free(map[y]);
-    free(map);
-}
