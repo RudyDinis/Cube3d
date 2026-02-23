@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:47:45 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/22 20:03:09 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/23 19:06:57 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ void	*error_handler(t_data *data, int id)
 			printf(RED MALLOC_ERR RESET), free(data), NULL);
 	if (id == 3)
 		return (printf(RED IMG_ERR RESET), img_error(data), NULL);
+	if (id == 4)
+		return (free(data->minimap), free(data->map), free(data->player),
+			printf(RED MALLOC_ERR RESET), free(data), NULL);
 	return (NULL);
 }

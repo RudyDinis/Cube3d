@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 14:29:56 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/22 19:12:39 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/23 19:32:10 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	raycasting3(t_data *data, t_ray *vars)
 {
-	double	hitpos;
-
-	if (data->map->map[vars->map_y][vars->map_x] == 'P')
+	if (data->map->map[vars->map_y][vars->map_x] == 'P'
+		|| data->map->map[vars->map_y][vars->map_x] == 'p')
 	{
 		vars->dist_corr = vars->distance * cos(vars->angle
 				- (data->player->r * 3.14159265 / 180.0));
@@ -24,35 +23,15 @@ int	raycasting3(t_data *data, t_ray *vars)
 			vars->dist_corr = 0.1;
 		vars->wall_height = (1080.0 * 32.0) / vars->dist_corr;
 		if (vars->map_x != (int)floor(vars->x))
-			hitpos = fmod(vars->y + 32.0, 32.0) / 32.0;
+			vars->hitpos = fmod(vars->y + 32.0, 32.0) / 32.0;
 		else
-			hitpos = fmod(vars->x + 32.0, 32.0) / 32.0;
-		door_draw_wall(data, vars->col, vars->wall_height, hitpos);
+			vars->hitpos = fmod(vars->x + 32.0, 32.0) / 32.0;
+		if (!door_is_solid(data, vars,
+				data->map->map[vars->map_y][vars->map_x]))
+			return (0);
+		door_draw_wall(data, vars, data->map->map[vars->map_y][vars->map_x]);
 		return (1);
 	}
-	return (0);
-}
-
-int	raycasting2(t_data *data, t_ray *vars)
-{
-	double	hitpos;
-
-	if (data->map->map[vars->map_y][vars->map_x] == '1')
-	{
-		vars->dist_corr = vars->distance * cos(vars->angle
-				- (data->player->r * 3.14159265 / 180.0));
-		if (vars->dist_corr <= 0.1)
-			vars->dist_corr = 0.1;
-		vars->wall_height = (1080.0 * 32.0) / vars->dist_corr;
-		if (vars->map_x != (int)floor(vars->x))
-			hitpos = fmod(vars->y + 32.0, 32.0) / 32.0;
-		else
-			hitpos = fmod(vars->x + 32.0, 32.0) / 32.0;
-		draw_wall(data, vars->col, vars->wall_height, hitpos);
-		return (1);
-	}
-	if (raycasting3(data, vars) == 1)
-		return (1);
 	return (0);
 }
 

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moove.c                                            :+:      :+:    :+:   */
+/*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/22 14:24:59 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/23 13:38:56 by rdinis           ###   ########.fr       */
+/*   Created: 2026/02/23 15:50:30 by rdinis            #+#    #+#             */
+/*   Updated: 2026/02/23 15:52:35 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cube3d.h"
 
-int	can_moove(t_data *data, double dx, double dy)
+int	mouse_move_hook(int x, int y, void *param)
 {
-	if (data->map->map[(int)(data->player->y + dy) / 32]
-		[(int)(data->player->x + dx) / 32] == '1')
-		return (0);
-	else if (data->map->map[(int)(data->player->y + dy) / 32]
-		[(int)(data->player->x + dx) / 32] == 'P')
-		return (0);
-	return (1);
+	t_data	*data;
+	int		dx;
+
+	(void)y;
+	data = param;
+	dx = x - 960;
+	data->player->r += dx * 0.3;
+	mlx_mouse_move(data->mlx, data->mlx_win, 1920 / 2, 1080 / 2);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/22 19:59:00 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/23 19:32:40 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ typedef struct s_ray
 	int		map_y;
 	double	dist_corr;
 	double	wall_height;
+	double	hitpos;
+	int		color;
+	double	zbuffer[1920];
 }	t_ray;
 
 typedef struct s_keys
@@ -85,16 +88,28 @@ typedef struct s_player
 	t_img		data_img;
 }	t_player;
 
+typedef struct s_enemy
+{
+	int		x;
+	int		y;
+	int		r;
+	t_img	img;
+}	t_enemy;
+
 typedef struct s_minimap
 {
 	void	*wall;
 	void	*wall_addr;
 	int		wall_bpp;
 	int		wall_size_line;
-	void	*door;
-	void	*door_addr;
-	int		door_bpp;
-	int		door_size_line;
+	void	*door_c;
+	void	*door_c_addr;
+	int		door_c_bpp;
+	int		door_c_size_line;
+	void	*door_o;
+	void	*door_o_addr;
+	int		door_o_bpp;
+	int		door_o_size_line;
 }	t_minimap;
 
 typedef struct s_map
@@ -113,6 +128,7 @@ typedef struct s_data
 	t_map		*map;
 	t_minimap	*minimap;
 	t_player	*player;
+	t_enemy		*enemy;
 }	t_data;
 
 int		close_hook(void *param);
@@ -121,6 +137,11 @@ int		key_release(int keycode, t_data *data);
 int		loop_hook(t_data *data);
 int		can_moove(t_data *data, double dx, double dy);
 int		load_img(t_data *data);
+int		door_is_solid(t_data *data, t_ray *vars, char p);
+int		mouse_move_hook(int x, int y, void *param);
+int		raycasting2(t_data *data, t_ray *vars);
+int		raycasting5(t_data *data, t_ray *vars);
+int		raycasting3(t_data *data, t_ray *vars);
 
 void	init_player(t_data *data);
 void	draw_player_arrow(t_data *data, int width);
@@ -128,10 +149,12 @@ void	raycasting(t_data *data);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	load_minimap(t_data *data);
 void	render_frame(t_data *data);
-void	door_draw_wall(t_data *data, int col, double wallHeight, double hitPos);
+void	door_draw_wall(t_data *data, t_ray *vars, char p);
 void	draw_wall(t_data *data, int col, double wall_height, double hitPos);
 void	exit_game(t_data *data);
 void	free_map(char **map, int height);
 void	*error_handler(t_data *data, int id);
+void	interact_door(t_data *data);
+void	draw_enemy(t_data *data, t_ray *vars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:15:38 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/22 19:41:33 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/23 16:04:30 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	exit_game(t_data *data)
 		return ;
 	if (data->mlx_win)
 		mlx_destroy_window(data->mlx, data->mlx_win);
-	if (data->minimap->door)
-		mlx_destroy_image(data->mlx, data->minimap->door);
+	if (data->minimap->door_c)
+		mlx_destroy_image(data->mlx, data->minimap->door_c);
+	if (data->minimap->door_o)
+		mlx_destroy_image(data->mlx, data->minimap->door_o);
 	if (data->minimap->wall)
 		mlx_destroy_image(data->mlx, data->minimap->wall);
 	exit2(data);

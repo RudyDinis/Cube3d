@@ -61,7 +61,16 @@ char **generate_map(int width, int height)
                     map[i][j] = '1';
             }
     // placer le joueur sur un point du chemin (par exemple départ)
-    map[1][1] = 'J';
+    if (rand() % 5 == 0)
+        map[1][1] = 'N';
+    else if (rand() % 5 == 0)
+        map[1][1] = 'S';
+    else if (rand() % 5 == 0)
+        map[1][1] = 'E';
+    else
+        map[1][1] = 'W';
+
+    map[5][5] = 'E';
 
     return map;
 }

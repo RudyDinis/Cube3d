@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/22 20:00:35 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/23 19:08:12 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ void	load_minimap(t_data *data)
 		while (data->map->map[y][x])
 		{
 			if (data->map->map[y][x] == '1')
-			{
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 					data->minimap->wall, x * 32, y * 32);
-			}
 			if (data->map->map[y][x] == 'P')
-			{
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->minimap->door, x * 32, y * 32);
-			}
+					data->minimap->door_c, x * 32, y * 32);
+			if (data->map->map[y][x] == 'E')
+				mlx_put_image_to_window(data->mlx, data->mlx_win,
+					data->enemy->img.img, x * 32, y * 32);
 			x++;
 		}
 		y++;
@@ -50,6 +49,9 @@ int	init(t_data *data)
 	data->player = ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		return (error_handler(data, 2), 1);
+	data->enemy = ft_calloc(1, sizeof(t_enemy));
+	if (!data->player)
+		return (error_handler(data, 4), 1);
 	return (0);
 }
 
@@ -82,10 +84,13 @@ int	main(void)
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->vision.img, 0, 0);
 	draw_player_arrow(data, 0);
 	load_minimap(data);
+	mlx_mouse_hide(data->mlx, data->mlx_win);
 	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
 	mlx_loop_hook(data->mlx, loop_hook, data);
 	mlx_hook(data->mlx_win, 17, 0, close_hook, data);
+	mlx_mouse_move(data->mlx, data->mlx_win, 1920 / 2, 1080 / 2);
+	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move_hook, data);
 	mlx_loop(data->mlx);
 	return (0);
 }

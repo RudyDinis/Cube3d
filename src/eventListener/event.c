@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 14:18:42 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/22 19:23:15 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/23 15:45:32 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	key_press(int keycode, t_data *data)
 		data->keys.left = 1;
 	if (keycode == 65307)
 		close_hook(data);
+	if (keycode == 101)
+		interact_door(data);
 	return (0);
 }
 
@@ -52,13 +54,13 @@ void	left_right(t_data *data, double *dx, double *dy, double rad)
 {
 	if (data->keys.left)
 	{
-		*dx += cos(rad - 3.14159265 / 2);
-		*dy += sin(rad - 3.14159265 / 2);
+		*dx += cos(rad - 3.14159265 / 2) * 1.5;
+		*dy += sin(rad - 3.14159265 / 2) * 1.5;
 	}
 	if (data->keys.right)
 	{
-		*dx += cos(rad + 3.14159265 / 2) * 1;
-		*dy += sin(rad + 3.14159265 / 2) * 1;
+		*dx += cos(rad + 3.14159265 / 2) * 1.5;
+		*dy += sin(rad + 3.14159265 / 2) * 1.5;
 	}
 	if (can_moove(data, *dx, *dy))
 	{
@@ -83,13 +85,13 @@ int	loop_hook(t_data *data)
 		data->player->r += 2.5;
 	if (data->keys.up)
 	{
-		dx += cos(rad);
-		dy += sin(rad);
+		dx += cos(rad) * 1.5;
+		dy += sin(rad) * 1.5;
 	}
 	if (data->keys.down)
 	{
-		dx -= cos(rad);
-		dy -= sin(rad);
+		dx -= cos(rad) * 1.5;
+		dy -= sin(rad) * 1.5;
 	}
 	left_right(data, &dx, &dy, rad);
 	return (0);
