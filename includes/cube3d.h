@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/23 19:32:40 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/25 20:00:56 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <time.h>
 # include <mlx.h>
 # include <math.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
 # include "../utils/libft/libft.h"
 
@@ -37,12 +39,14 @@
 # define BOLD_BLUE	"\033[1;34m"
 # define BOLD_WHITE	"\033[1;37m"
 # define RESET		"\033[0m"
+
 # define MALLOC_ERR "Malloc Error\n"
 # define IMG_ERR "Error while loading img\n"
-
-//TEMP INCLUDE
-char	**generate_map(int width, int height);
-void	print_map(char **map, int height);
+# define XPM_PARAM "XPM file: wrong number of parameters"
+# define XPM_TEXTURE "XPM file: texture size not supported"
+# define XPM_COLOR "XPM file: incorrect number of color"
+# define XPM_PIXEL "XPM file: number of character per pixel not supported"
+# define XPM_NUM "XPM file: numeric arguments required"
 
 typedef struct s_ray
 {
@@ -88,13 +92,20 @@ typedef struct s_player
 	t_img		data_img;
 }	t_player;
 
-typedef struct s_enemy
-{
-	int		x;
-	int		y;
-	int		r;
-	t_img	img;
-}	t_enemy;
+typedef struct s_id {
+	char				**id;
+	char				**done;
+	struct s_map_data	*data;
+}	t_id;
+
+typedef struct s_map_data {
+	char	*no_texture;
+	char	*so_texture;
+	char	*ea_texture;
+	char	*we_texture;
+	char	**c_color;
+	char	**f_color;
+}	t_map_data;
 
 typedef struct s_minimap
 {
@@ -114,10 +125,11 @@ typedef struct s_minimap
 
 typedef struct s_map
 {
-	char	**map;
-	int		height;
-	int		width;
+	char		**map;
+	int			height;
+	int			width;
 }	t_map;
+
 
 typedef struct s_data
 {
@@ -128,7 +140,7 @@ typedef struct s_data
 	t_map		*map;
 	t_minimap	*minimap;
 	t_player	*player;
-	t_enemy		*enemy;
+	t_map_data	*data_map;
 }	t_data;
 
 int		close_hook(void *param);
@@ -140,7 +152,6 @@ int		load_img(t_data *data);
 int		door_is_solid(t_data *data, t_ray *vars, char p);
 int		mouse_move_hook(int x, int y, void *param);
 int		raycasting2(t_data *data, t_ray *vars);
-int		raycasting5(t_data *data, t_ray *vars);
 int		raycasting3(t_data *data, t_ray *vars);
 
 void	init_player(t_data *data);
@@ -155,6 +166,17 @@ void	exit_game(t_data *data);
 void	free_map(char **map, int height);
 void	*error_handler(t_data *data, int id);
 void	interact_door(t_data *data);
-void	draw_enemy(t_data *data, t_ray *vars);
 
+int		check_valid_char(char c);
+int		check_xpm(char *texture);
+int		check_map_extension(char *path);
+int		check_id_order(char **split, t_id *id, int pos);
+t_id	*malloc_id(t_map_data *data);
+void	check_identifier(int fd, t_id *id);
+void	skip_newline(char **line, int fd);
+void	replace_space(char *copy, size_t *j, size_t i);
+void	free_id(t_id *id);
+void	check_map(char *map, t_map_data *data);
+char	*fill_map(int fd, char *map, t_id *id);
+size_t	get_map_size(int fd, t_id *id);
 #endif

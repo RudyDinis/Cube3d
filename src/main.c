@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/23 19:08:12 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/25 20:00:45 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ void	load_minimap(t_data *data)
 			if (data->map->map[y][x] == 'P')
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 					data->minimap->door_c, x * 32, y * 32);
-			if (data->map->map[y][x] == 'E')
-				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->enemy->img.img, x * 32, y * 32);
 			x++;
 		}
 		y++;
@@ -49,28 +46,28 @@ int	init(t_data *data)
 	data->player = ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		return (error_handler(data, 2), 1);
-	data->enemy = ft_calloc(1, sizeof(t_enemy));
-	if (!data->player)
-		return (error_handler(data, 4), 1);
 	return (0);
 }
 
-int	main(void)
+/*
+int	main(int argc, char **argv)
+{
+
+	
+}*/
+
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
+	if (argc != 2)
+		return (1);
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (1);
 	if (init(data) == 1)
 		return (1);
-	//start temp
-	data->map->width = 20;
-	data->map->height = 10;
-	srand(time(NULL));
-	data->map->map = generate_map(data->map->width, data->map->height);
-	print_map(data->map->map, data->map->height);
-	//end temp
+	check_map(argv[1], data->data_map);
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello word!");
 	data->vision.img = mlx_new_image(data->mlx, 1920, 1080);

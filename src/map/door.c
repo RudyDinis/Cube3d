@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 12:51:04 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/23 15:33:01 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/24 14:16:58 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,10 @@ void	interact_door2(t_data *data, int x, int y)
 {
 	if (data->map->map[y][x] == 'P')
 	{
-		printf("opening door\n");
 		data->map->map[y][x] = 'p';
 	}
 	else if (data->map->map[y][x] == 'p')
 	{
-		printf("closing door\n");
 		data->map->map[y][x] = 'P';
 	}
 }

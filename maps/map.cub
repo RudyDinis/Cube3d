@@ -1,0 +1,22 @@
+WE       ../src/img/wall.xpm
+EA ../src/img/wall.xpm
+
+
+
+
+SO        ../src/img/wall.xpm
+NO                        ../src/img/wall.xpm
+
+
+
+
+
+
+
+F 200,100,255
+C 225,0,0
+
+1111
+11N1
+00000000000000000000000000001
+11111111111111111111111111111

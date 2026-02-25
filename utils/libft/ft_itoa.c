@@ -3,63 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/13 14:04:16 by rdinis            #+#    #+#             */
-/*   Updated: 2025/11/13 15:11:57 by rdinis           ###   ########.fr       */
+/*   Created: 2025/11/07 08:13:28 by bbouarab          #+#    #+#             */
+/*   Updated: 2025/11/07 08:16:03 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_size(long long nb)
+size_t	ft_int_length(int n)
 {
 	size_t	size;
 
-	size = 0;
-	if (nb < 0)
+	size = 1;
+	while (n / 10)
 	{
-		nb = nb * (-1);
-		size = 1;
-	}
-	if (nb == 0)
-		size = 1;
-	else
-	{
-		while (nb)
-		{
-			nb = nb / 10;
-			size++;
-		}
+		n /= 10;
+		size++;
 	}
 	return (size);
 }
 
-char	*ft_itoa(long n)
+int	is_negative(int n)
 {
-	size_t		size;
-	long long	nb;
-	char		*str;
-	int			is_negative;
+	if (n < 0)
+		return (1);
+	return (0);
+}
 
-	size = count_size((long long) n);
-	str = (char *) malloc(sizeof(char) * (size + 1));
-	if (str == NULL)
+char	*ft_itoa(int n)
+{
+	char		*number;
+	int			i;
+	long long	num;
+
+	num = n;
+	i = ft_int_length(num) - 1;
+	number = malloc(ft_int_length(num) + 1 + is_negative(num));
+	if (!number)
 		return (NULL);
-	nb = (long long) n;
-	is_negative = 0;
-	if (nb < 0)
+	if (is_negative(num) == 1)
 	{
-		nb = nb * (-1);
-		str[0] = '-';
-		is_negative = 1;
+		number[0] = '-';
+		num *= -1;
+		i++;
 	}
-	str[size] = '\0';
-	while (size > (size_t) is_negative)
+	number[ft_int_length(num) + is_negative(n)] = '\0';
+	while (i >= is_negative(n))
 	{
-		str[size - 1] = nb % 10 + '0';
-		nb = nb / 10;
-		size--;
+		number[i] = num % 10 + '0';
+		num /= 10;
+		i--;
 	}
-	return (str);
+	return (number);
 }

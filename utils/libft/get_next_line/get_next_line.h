@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 11:15:27 by jdecorte          #+#    #+#             */
-/*   Updated: 2025/12/29 16:04:32 by rdinis           ###   ########.fr       */
+/*   Created: 2025/11/04 14:58:23 by bbouarab          #+#    #+#             */
+/*   Updated: 2026/02/24 15:07:30 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
 # include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100000
+#  define BUFFER_SIZE 1000000
 # endif
 
-char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *string, int searchedChar );
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t elementCount, size_t elementSize);
-size_t	ft_strlen(const char *theString);
+int			check_newline(char *line);
+size_t		ft_strlen_gnl(char *c, int type);
+char		*ft_strdup_gnl(char *src);
+char		*ft_strdup_newline(char *new_line, char **stash, int len);
+char		*get_next_line(int fd, int reset);
+char		*get_next_char(int fd);
+char		*fill_line(int fd, char **stash, int reset);
+char		*ft_strjoin_gnl(char *s1, char *s2);
 
 #endif

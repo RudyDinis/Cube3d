@@ -3,100 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 17:07:52 by rdinis            #+#    #+#             */
-/*   Updated: 2025/11/12 18:39:58 by rdinis           ###   ########.fr       */
+/*   Created: 2025/11/07 08:39:23 by bbouarab          #+#    #+#             */
+/*   Updated: 2025/11/07 08:43:29 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	put_var(size_t *i, int *j, int *s_word)
-{
-	*i = 0;
-	*j = 0;
-	*s_word = -1;
-}
-
-int	word_count(const char *str, char c)
-{
-	int	count;
-	int	x;
-
-	count = 0;
-	x = 0;
-	while (*str)
-	{
-		if (*str != c && x == 0)
-		{
-			x = 1;
-			count++;
-		}
-		else if (*str == c)
-			x = 0;
-		str++;
-	}
-	return (count);
-}
-
-char	*ft_split2(const char *str, int start, int end)
-{
-	char	*word;
-	int		i;
-
-	i = 0;
-	word = malloc((end - start + 1) * sizeof(char));
-	if (!word)
-		return (NULL);
-	while (start < end)
-	{
-		word[i] = str[start];
-		i++;
-		start++;
-	}
-	word[i] = 0;
-	return (word);
-}
-
-void	*free_all(char **strs, int count)
+static int	is_sep(char c, char *sep)
 {
 	int	i;
 
 	i = 0;
-	while (i < count)
+	while (sep[i])
 	{
-		free(strs[i]);
+		if (sep[i] == c)
+			return (1);
 		i++;
 	}
-	free(strs);
-	return (NULL);
+	return (0);
 }
 
-char	**ft_split(const char *s, char c)
+static int	count_words(char const *s, char *c)
 {
-	char	**res;
-	size_t	i;
-	int		j;
-	int		s_word;
+	size_t	word_count;
+	int		i;
 
-	put_var(&i, &j, &s_word);
-	res = ft_calloc((word_count(s, c) + 1), sizeof(char *));
-	if (!res)
-		return (NULL);
-	while (i <= ft_strlen(s))
+	i = 0;
+	word_count = 0;
+	while (s[i])
 	{
-		if (s[i] != c && s_word < 0)
-			s_word = i;
-		else if ((s[i] == c || i == ft_strlen(s)) && s_word >= 0)
-		{
-			res[j] = ft_split2(s, s_word, i);
-			if (!(res[j]))
-				return (free_all(res, j));
-			s_word = -1;
-			j++;
-		}
+		while (s[i] && is_sep(s[i], c))
+			i++;
+		if (s[i] && !is_sep(s[i], c))
+			word_count++;
+		while (s[i] && !is_sep(s[i], c))
+			i++;
+	}
+	return (word_count);
+}
+
+static char	*copy(const char *s, char *c)
+{
+	size_t	letter;
+	int		i;
+	char	*copy;
+
+	letter = 0;
+	i = 0;
+	while (s[letter] && !is_sep(s[letter], c))
+		letter++;
+	copy = malloc(letter + 1);
+	if (!copy)
+		return (NULL);
+	while (s[i] && !is_sep(s[i], c))
+	{
+		copy[i] = s[i];
 		i++;
 	}
-	return (res);
+	copy[i] = 0;
+	return (copy);
+}
+
+char	**ft_split(char const *s, char *c)
+{
+	size_t	word_count;
+	size_t	actual_word;
+	int		i;
+	char	**split;
+
+	if (!s)
+		return (NULL);
+	word_count = count_words(s, c);
+	actual_word = 0;
+	i = 0;
+	split = malloc((word_count + 1) * sizeof(char *));
+	if (!split)
+		return (NULL);
+	while (s[i] && actual_word < word_count)
+	{
+		while (s[i] && is_sep(s[i], c))
+			i++;
+		split[actual_word] = copy(&s[i], c);
+		if (!split[actual_word])
+			return (free_vector(split), NULL);
+		actual_word++;
+		while (s[i] && !is_sep(s[i], c))
+			i++;
+	}
+	return (split[actual_word] = NULL, split);
 }

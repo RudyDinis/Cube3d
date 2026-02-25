@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 13:31:04 by rdinis            #+#    #+#             */
-/*   Updated: 2025/11/11 13:47:04 by rdinis           ###   ########.fr       */
+/*   Created: 2025/11/07 08:47:30 by bbouarab          #+#    #+#             */
+/*   Updated: 2025/11/07 09:02:16 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,25 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t	src_len;
-	size_t	dst_len;
+	size_t	i;
+	size_t	j;
+	size_t	dstlen;
+	size_t	srclen;
 
-	src_len = ft_strlen(src);
-	dst_len = 0;
-	while (dst_len < dstsize && dst && dst[dst_len])
-		dst_len++;
-	if (dst_len == dstsize)
-		return (dstsize + src_len);
-	if (src_len < dstsize - dst_len)
-		ft_memcpy(dst + dst_len, src, src_len + 1);
-	else
+	if (!dst)
+		return ((size_t) NULL);
+	i = 0;
+	dstlen = ft_strlen(dst);
+	srclen = ft_strlen(src);
+	j = dstlen;
+	if (dstlen >= dstsize)
+		return (dstsize + srclen);
+	while (src[i] && (j + 1) < dstsize)
 	{
-		ft_memcpy(dst + dst_len, src, dstsize - dst_len - 1);
-		dst[dstsize - 1] = '\0';
+		dst[j] = src[i];
+		i++;
+		j++;
 	}
-	return (dst_len + src_len);
+	dst[j] = 0;
+	return (dstlen + srclen);
 }

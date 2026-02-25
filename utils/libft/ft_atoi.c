@@ -3,39 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 11:07:14 by rdinis            #+#    #+#             */
-/*   Updated: 2025/11/11 11:21:38 by rdinis           ###   ########.fr       */
+/*   Created: 2025/11/04 14:58:23 by bbouarab          #+#    #+#             */
+/*   Updated: 2025/11/04 14:58:23 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *src)
+static int	is_space(char c)
 {
-	int	indice;
-	int	signe;
-	int	res;
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
 
-	indice = 0;
-	signe = 1;
-	res = 0;
-	while (src[indice] == '\t' || src[indice] == '\n'
-		|| src[indice] == ' ' || src[indice] == '\v'
-		|| src[indice] == '\f' || src[indice] == '\r')
+int	ft_atoi(char *str)
+{
+	int		i;
+	int		result;
+	int		is_negative;
+
+	i = 0;
+	result = 0;
+	is_negative = 1;
+	while (is_space(str[i]) && str[i])
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		indice++;
+		if (str[i] == '-')
+			is_negative = -1;
+		i++;
 	}
-	while (src[indice] == '-' || src[indice] == '+')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (src[indice] == '-')
-			signe = signe * -1;
-		if (src[indice + 1] == '-' || src[indice + 1] == '+')
-			return (0);
-		indice++;
+		result = result * 10 + (str[i] - '0');
+		i++;
 	}
-	while (src[indice] >= '0' && src[indice] <= '9')
-		res = res * 10 + (src[indice++] - 48);
-	return (signe * res);
+	return (result * is_negative);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 13:29:55 by rdinis            #+#    #+#             */
-/*   Updated: 2025/11/11 13:46:57 by rdinis           ###   ########.fr       */
+/*   Created: 2025/11/07 08:46:49 by bbouarab          #+#    #+#             */
+/*   Updated: 2025/11/07 08:47:25 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,28 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
+	size_t	len1;
+	size_t	len2;
 	size_t	i;
 	size_t	j;
+	char	*s3;
 
-	if (!s1)
+	if (!s1 || !s2)
 		return (NULL);
-	str = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
 	i = 0;
-	if (!str)
+	j = 0;
+	s3 = malloc(len1 + len2 + 1);
+	if (!s3)
 		return (NULL);
-	j = 0;
-	while (j < ft_strlen(s1))
-		str[i++] = s1[j++];
-	j = 0;
-	while (j < ft_strlen(s2))
-		str[i++] = s2[j++];
-	return (str);
+	while (i < len1)
+	{
+		s3[i] = s1[i];
+		i++;
+	}
+	while (j < len2)
+		s3[i++] = s2[j++];
+	s3[i] = 0;
+	return (s3);
 }
