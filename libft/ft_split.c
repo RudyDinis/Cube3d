@@ -88,7 +88,7 @@ char	**ft_split(char const *s, char *c)
 			i++;
 		split[actual_word] = copy(&s[i], c);
 		if (!split[actual_word])
-			return (free_everything((void **)split), NULL);
+			return (free_vector(split), NULL);
 		actual_word++;
 		while (s[i] && !is_sep(s[i], c))
 			i++;

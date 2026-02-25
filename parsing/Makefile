@@ -5,7 +5,7 @@ AR = ar rcs
 RM = rm -rf
 OBJ_DIR = obj
 
-SRC = check_id.c check_map.c check_xpm.c
+SRC = checker.c check_id.c check_map.c check_xpm.c parser_utils.c
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 HEADER = parsing.h

@@ -6,7 +6,7 @@
 /*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:58:23 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/17 13:43:57 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:41:28 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_next_line(int fd, int reset)
 		if (stash[fd])
 			free(stash[fd]);
 		if (reset == 2)
-			return (stash[fd] = NULL, NULL);
+			return (close(fd), stash[fd] = NULL, NULL);
 		stash[fd] = NULL;
 	}
 	if (fd < 0 || BUFFER_SIZE <= 0)
