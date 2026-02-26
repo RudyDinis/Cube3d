@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/25 20:00:56 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 13:52:33 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_map_data {
 	char	*we_texture;
 	char	**c_color;
 	char	**f_color;
+	char	**map;
 }	t_map_data;
 
 typedef struct s_minimap
@@ -171,12 +172,13 @@ int		check_valid_char(char c);
 int		check_xpm(char *texture);
 int		check_map_extension(char *path);
 int		check_id_order(char **split, t_id *id, int pos);
-t_id	*malloc_id(t_map_data *data);
+t_id	*malloc_id(void);
+t_map_data	*malloc_data(void);
 void	check_identifier(int fd, t_id *id);
 void	skip_newline(char **line, int fd);
 void	replace_space(char *copy, size_t *j, size_t i);
-void	free_id(t_id *id);
-void	check_map(char *map, t_map_data *data);
+void	free_id(t_id *id, int param);
+t_map_data	*check_map(char *map);
 char	*fill_map(int fd, char *map, t_id *id);
 size_t	get_map_size(int fd, t_id *id);
 #endif

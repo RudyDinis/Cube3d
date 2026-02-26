@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 12:25:20 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 13:58:58 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,20 @@ int	init(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	t_data		*data;
+	t_map_data	*map_data;
 
 	if (argc != 2)
 		return (1);
+	map_data = check_map(argv[1]);
+	if (!map_data)
+		return 1;
 	data = ft_calloc(1, sizeof(t_data));
+	return 0;
 	if (!data)
 		return (1);
 	if (init(data) == 1)
 		return (1);
-	check_map(argv[1], data->data_map);
-	printf("%s\n", data->data_map->no_texture);
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Cub3d");
 	data->vision.img = mlx_new_image(data->mlx, 1920, 1080);

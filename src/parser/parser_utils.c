@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 10:51:47 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/26 12:24:48 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 14:24:18 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*fill_map(int fd, char *map, t_id *id)
 	check_identifier(fd, id);
 	char *(copy) = ft_calloc(size + 1, 1);
 	if (!copy)
-		return (NULL);
+		return (free_id(id, 1), exit(1), NULL);
 	gnl = get_next_line(fd, 0);
 	skip_newline(&gnl, fd);
 	while (gnl)
@@ -41,7 +41,7 @@ char	*fill_map(int fd, char *map, t_id *id)
 	return (get_next_line(fd, 2), copy);
 }
 
-t_id	*malloc_id(t_map_data *data)
+t_id	*malloc_id()
 {
 	t_id	*id;
 	int		i;
@@ -61,8 +61,8 @@ t_id	*malloc_id(t_map_data *data)
 	id->id[5] = ft_strdup("C");
 	id->done = ft_calloc(6 + 1, sizeof(char *));
 	if (!id->done)
-		return (id->done = NULL, free_id(id), NULL);
-	id->data = data;
+		return (id->done = NULL, free_id(id, 1), NULL);
+	id->data = malloc_data();
 	return (id);
 }
 
@@ -100,10 +100,11 @@ void	free_data(t_map_data *data)
 		free(data->ea_texture);
 	free_vector(data->c_color);
 	free_vector(data->f_color);
+	free_vector(data->map);
 	free(data);
 }
 
-void	free_id(t_id *id)
+void	free_id(t_id *id, int param)
 {
 	int	i;
 
@@ -120,6 +121,8 @@ void	free_id(t_id *id)
 		free(id->id);
 	if (id->done)
 		free(id->done);
+	if (id->data && param)
+		free_data(id->data);
 	if (id)
 		free(id);
 }

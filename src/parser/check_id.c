@@ -88,6 +88,7 @@ int	check_id_other(char *line, t_id *id, int pos)
 	if (check_id_other_color(split, split_color, id, pos))
 		return (1);
 	free_vector(split);
+	free_vector(split_color);
 	return (0);
 }
 
@@ -156,7 +157,7 @@ void	check_identifier(int fd, t_id *id)
 				break ;
 		}
 		if (check_id_cardinal(line, &i, id))
-			return (free(line), get_next_line(fd, 2), free_id(id), exit(1));
+			return (free(line), get_next_line(fd, 2), free_id(id, 1), exit(1));
 		free(line);
 		line = get_next_line(fd, 0);
 	}
@@ -164,5 +165,5 @@ void	check_identifier(int fd, t_id *id)
 		free(line);
 	if (i != 6)
 		return (ft_printf_error("Error\nWrong number of identifier\n"),
-			free_id(id), close(fd), exit(1));
+			free_id(id, 1), close(fd), exit(1));
 }

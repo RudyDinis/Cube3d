@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:06:10 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/25 19:49:24 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 14:23:33 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,31 +113,31 @@ int	check_closed(char *map)
 	return (check_space(s));
 }
 
-void	check_map(char *map, t_map_data *data)
+t_map_data	*check_map(char *map)
 {
-	int		fd;
-	char	*copy;
-	t_id	*id;
-	t_id	*new_id;
+	int			fd;
+	char		*copy;
+	t_id		*id;
+	t_map_data	*map_data;
 
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf_error("Error\n%s: map not found\n", map),
-			(void)1);
+		return (ft_printf_error("Error\n%s: map not found\n", map), NULL);
 	if (!check_map_extension(map))
-		return (ft_printf_error("Error\n%s: wrong file extension\n", map),
-			(void)1);
-	id = malloc_id(data);
+		return (ft_printf_error("Error\n%s: wrong file extension\n", map), NULL);
+	id = malloc_id();
 	if (!id)
-		exit(1);
+		return (NULL);
 	check_identifier(fd, id);
-	free_id(id);
-	new_id = malloc_id(data);
-	if (!new_id)
-		return (exit(1));
-	copy = fill_map(fd, map, new_id);
-	if (copy)
-		check_closed(copy);
-	free(copy);
-	free_id(new_id);
+	free_id(id, 1);
+	id = malloc_id();
+	if (!id)
+		return (NULL);
+	copy = fill_map(fd, map, id);
+	if (!copy || (copy && check_closed(copy)))
+		return (free_id(id, 1), free(copy), NULL);
+	id->data->map = ft_split(copy, "\n");
+	if (!id->data->map)
+		return (free_id(id, 1), free(copy), NULL);
+	return (map_data = id->data, free(copy), free_id(id, 0), map_data);
 }
