@@ -1,6 +1,6 @@
-NAME = Cube3d
+NAME = Cub3d
 LIBFT = utils/libft
-SRC =	src/main.c src/temp/map.c \
+SRC =	src/main.c \
 		src/img/load_img.c \
 		src/map/wall.c src/map/door.c \
 		src/player/player.c src/player/view.c src/player/moove.c \

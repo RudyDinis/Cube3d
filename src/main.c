@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/25 20:00:45 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 12:25:20 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ int	init(t_data *data)
 	return (0);
 }
 
-/*
-int	main(int argc, char **argv)
-{
-
-	
-}*/
-
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -68,8 +61,9 @@ int	main(int argc, char **argv)
 	if (init(data) == 1)
 		return (1);
 	check_map(argv[1], data->data_map);
+	printf("%s\n", data->data_map->no_texture);
 	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello word!");
+	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Cub3d");
 	data->vision.img = mlx_new_image(data->mlx, 1920, 1080);
 	data->vision.addr = mlx_get_data_addr(data->vision.img,
 			&data->vision.bits_per_pixel, &data->vision.line_length,

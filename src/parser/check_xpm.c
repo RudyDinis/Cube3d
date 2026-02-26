@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:03:13 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/25 19:49:55 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 12:35:35 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_xpm_size_settings_2(char *line, char **split, int i)
 		return (ft_printf_error(
 				"Error\n%s: %s (%d: expected more than 0)\n",
 				line, XPM_COLOR, ft_atoi(split[1])), free_vector(split), 1);
-	if (ft_atoi(split[3]) != 1)
+	if (ft_atoi(split[3]) != 1 && ft_atoi(split[3]) != 2)
 		return (ft_printf_error(
 				"Error\n%s: %s (%d: expected 1)\n",
 				line, XPM_PIXEL, ft_atoi(split[3])), free_vector(split), 1);

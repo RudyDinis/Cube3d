@@ -1,11 +1,11 @@
-WE       ../src/img/wall.xpm
-EA ../src/img/wall.xpm
+WE       ./wall.xpm
+EA ./wall.xpm
 
 
 
 
-SO        ../src/img/wall.xpm
-NO                        ../src/img/wall.xpm
+SO        ./wall.xpm
+NO                        ./wall.xpm
 
 
 

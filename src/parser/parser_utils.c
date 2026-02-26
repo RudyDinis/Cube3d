@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 10:51:47 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/25 19:50:44 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 12:24:48 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,6 @@ void	free_id(t_id *id)
 		free(id->id);
 	if (id->done)
 		free(id->done);
-	if (id->data)
-		free_data(id->data);
 	if (id)
 		free(id);
 }
