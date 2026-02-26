@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 14:29:56 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/23 19:32:10 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 19:13:55 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ int	raycasting4(t_data *data, t_ray *vars)
 	vars->y = data->player->y + sin(vars->angle) * vars->distance;
 	vars->map_x = (int)floor(vars->x / 32);
 	vars->map_y = (int)floor(vars->y / 32);
+	if (vars->map_x != vars->prev_map_x)
+		vars->side = 0;
+	else
+		vars->side = 1;
+	vars->prev_map_x = vars->map_x;
+	vars->prev_map_y = vars->map_y;
 	if (vars->map_x < 0 || vars->map_y < 0
 		|| vars->map_x >= data->map->width || vars->map_y >= data->map->height)
 		return (1);
@@ -58,6 +64,8 @@ void	raycasting(t_data *data)
 	else
 		vars.max = data->map->height;
 	vars.col = 0;
+	vars.prev_map_x = (int)floor(data->player->x / 32);
+	vars.prev_map_y = (int)floor(data->player->y / 32);
 	while (vars.col < 1920)
 	{
 		vars.angle = (data->player->r - data->player->fov / 2.0
@@ -68,7 +76,7 @@ void	raycasting(t_data *data)
 		{
 			if (raycasting4(data, &vars) == 1)
 				break ;
-			vars.distance += 1.0;
+			vars.distance += 0.5;
 		}
 		vars.col++;
 	}

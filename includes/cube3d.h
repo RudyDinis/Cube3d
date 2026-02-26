@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 14:57:08 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 19:11:38 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct s_ray
 	double	wall_height;
 	double	hitpos;
 	int		color;
+	int		side;
+	int		prev_map_x;
+	int		prev_map_y;
 	double	zbuffer[1920];
 }	t_ray;
 
@@ -110,10 +113,22 @@ typedef struct s_map_data {
 
 typedef struct s_minimap
 {
-	void	*wall;
-	void	*wall_addr;
-	int		wall_bpp;
-	int		wall_size_line;
+	void	*wall_no;
+	void	*wall_addr_no;
+	int		wall_bpp_no;
+	int		wall_size_line_no;
+	void	*wall_so;
+	void	*wall_addr_so;
+	int		wall_bpp_so;
+	int		wall_size_line_so;
+	void	*wall_ea;
+	void	*wall_addr_ea;
+	int		wall_bpp_ea;
+	int		wall_size_line_ea;
+	void	*wall_we;
+	void	*wall_addr_we;
+	int		wall_bpp_we;
+	int		wall_size_line_we;
 	void	*door_c;
 	void	*door_c_addr;
 	int		door_c_bpp;
@@ -164,7 +179,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	load_minimap(t_data *data);
 void	render_frame(t_data *data);
 void	door_draw_wall(t_data *data, t_ray *vars, char p);
-void	draw_wall(t_data *data, int col, double wall_height, double hitPos);
 void	exit_game(t_data *data);
 void	free_map(char **map, int height);
 void	*error_handler(t_data *data, int id);

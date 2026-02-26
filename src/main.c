@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 15:01:18 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 17:16:53 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	load_minimap(t_data *data)
 		{
 			if (data->map->map[y][x] == '1')
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->minimap->wall, x * 32, y * 32);
+					data->minimap->wall_no, x * 32, y * 32);
 			if (data->map->map[y][x] == 'P')
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 					data->minimap->door_c, x * 32, y * 32);

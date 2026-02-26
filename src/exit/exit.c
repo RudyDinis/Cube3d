@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:15:38 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 15:01:04 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 17:17:33 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ void	free_map(char **map, int height)
 	int	y;
 
 	y = 0;
-	printf("%d\n", height);
 	while (y < height)
 	{
-		printf("%s\n", map[y]);
 		free(map[y++]);
 	}
 	free(map);
@@ -38,6 +36,17 @@ void	exit2(t_data *data)
 		free(data->minimap);
 	if (data->vision.img)
 		mlx_destroy_image(data->mlx, data->vision.img);
+	if (data->data_map)
+	{
+		free_map(data->data_map->map, data->map->height);
+		free_vector(data->data_map->c_color);
+		free_vector(data->data_map->f_color);
+		free(data->data_map->ea_texture);
+		free(data->data_map->no_texture);
+		free(data->data_map->so_texture);
+		free(data->data_map->we_texture);
+		free(data->data_map);
+	}
 }
 
 void	exit_game(t_data *data)
@@ -50,8 +59,8 @@ void	exit_game(t_data *data)
 		mlx_destroy_image(data->mlx, data->minimap->door_c);
 	if (data->minimap->door_o)
 		mlx_destroy_image(data->mlx, data->minimap->door_o);
-	if (data->minimap->wall)
-		mlx_destroy_image(data->mlx, data->minimap->wall);
+	if (data->minimap->wall_no)
+		mlx_destroy_image(data->mlx, data->minimap->wall_no);
 	exit2(data);
 	if (data->mlx)
 	{
@@ -60,10 +69,7 @@ void	exit_game(t_data *data)
 		free(data->mlx);
 	}
 	if (data->map)
-	{
-		free_map(data->map->map, data->map->height);
 		free(data->map);
-	}
 	free(data);
 	exit(1);
 }

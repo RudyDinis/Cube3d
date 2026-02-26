@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 10:51:47 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/26 14:24:18 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/26 19:23:15 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*fill_map(int fd, char *map, t_id *id)
 	return (get_next_line(fd, 2), copy);
 }
 
-t_id	*malloc_id()
+t_id	*malloc_id(void)
 {
 	t_id	*id;
 	int		i;
@@ -86,6 +86,7 @@ void	replace_space(char *copy, size_t *j, size_t i)
 		(*j)++;
 	}
 }
+
 void	free_data(t_map_data *data)
 {
 	if (!data)
