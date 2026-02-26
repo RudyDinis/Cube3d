@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 13:58:58 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/26 15:01:18 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,18 @@ void	load_minimap(t_data *data)
 	}
 }
 
-int	init(t_data *data)
+int	init(t_data *data, t_map_data *map_data)
 {
+	data->data_map = map_data;
 	data->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (!data->minimap)
 		return (error_handler(data, 0), 1);
 	data->map = ft_calloc(1, sizeof(t_map));
 	if (!data->map)
 		return (error_handler(data, 1), 1);
+	data->map->map = map_data->map;
+	data->map->height = get_height(data->map->map);
+	data->map->width = get_width(data->map->map);
 	data->player = ft_calloc(1, sizeof(t_player));
 	if (!data->player)
 		return (error_handler(data, 2), 1);
@@ -58,12 +62,11 @@ int	main(int argc, char **argv)
 		return (1);
 	map_data = check_map(argv[1]);
 	if (!map_data)
-		return 1;
+		return (1);
 	data = ft_calloc(1, sizeof(t_data));
-	return 0;
 	if (!data)
 		return (1);
-	if (init(data) == 1)
+	if (init(data, map_data) == 1)
 		return (1);
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Cub3d");

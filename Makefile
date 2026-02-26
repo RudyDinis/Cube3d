@@ -2,7 +2,7 @@ NAME = Cub3d
 LIBFT = utils/libft
 SRC =	src/main.c \
 		src/img/load_img.c \
-		src/map/wall.c src/map/door.c \
+		src/map/wall.c src/map/door.c src/map/map_len.c \
 		src/player/player.c src/player/view.c src/player/moove.c \
 		src/eventListener/event.c src/eventListener/mouse.c \
 		src/exit/exit.c src/exit/error_handler.c \

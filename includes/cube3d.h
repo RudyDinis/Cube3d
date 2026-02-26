@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 13:52:33 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/26 14:57:08 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ int		door_is_solid(t_data *data, t_ray *vars, char p);
 int		mouse_move_hook(int x, int y, void *param);
 int		raycasting2(t_data *data, t_ray *vars);
 int		raycasting3(t_data *data, t_ray *vars);
+int		get_height(char **map);
+int		get_width(char **map);
 
 void	init_player(t_data *data);
 void	draw_player_arrow(t_data *data, int width);

@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:15:38 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/23 16:04:30 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/26 15:01:04 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ void	free_map(char **map, int height)
 	int	y;
 
 	y = 0;
+	printf("%d\n", height);
 	while (y < height)
+	{
+		printf("%s\n", map[y]);
 		free(map[y++]);
+	}
 	free(map);
 }
 
