@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/27 11:30:06 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 13:21:18 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@
 # define BOLD_WHITE	"\033[1;37m"
 # define RESET		"\033[0m"
 
-# define MALLOC_ERR "Malloc Error\n"
-# define IMG_ERR "Error while loading img\n"
-# define XPM_PARAM "XPM file: wrong number of parameters"
-# define XPM_TEXTURE "XPM file: texture size not supported"
-# define XPM_COLOR "XPM file: incorrect number of color"
-# define XPM_PIXEL "XPM file: number of character per pixel not supported"
-# define XPM_NUM "XPM file: numeric arguments required"
+# define MALLOC_ERR "Error\nMalloc Error\n"
+# define IMG_ERR "Error\nAn error occured while loading img\n"
+# define XPM_PARAM "XPM file: wrong number of parameters\n"
+# define XPM_TEXTURE "XPM file: texture size not supported\n"
+# define XPM_COLOR "XPM file: incorrect number of color\n"
+# define XPM_PIXEL "XPM file: number of character per pixel not supported\n"
+# define XPM_NUM "XPM file: numeric arguments required\n"
 
 typedef struct s_ray
 {

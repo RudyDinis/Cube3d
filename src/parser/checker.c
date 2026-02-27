@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:04:41 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/27 11:11:29 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 13:13:49 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	check_id_order(char **split, t_id *id, int pos)
 		j++;
 	}
 	ft_printf_error("Error\n%s: wrong identifier\n", *split);
+	free_vector(split);
 	return (2);
 }
 

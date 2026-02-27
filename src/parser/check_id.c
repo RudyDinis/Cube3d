@@ -82,7 +82,7 @@ int	check_id_other(char *line, t_id *id, int pos)
 	if (i != 2)
 		return (ft_printf_error("Error\n%s: syntax error\n", line),
 			free_vector(split), 2);
-	split_color = ft_split(split[1], ",");
+	split_color = ft_split(split[1], " ,");
 	if (!split_color)
 		return (free_vector(split), 1);
 	if (check_id_other_color(split, split_color, id, pos))
@@ -133,7 +133,7 @@ int	check_id_cardinal(char *line, int *pos, t_id *id)
 		return (ft_printf_error("Error\n%s: path error\n", split[1]),
 			free_vector(split), 2);
 	if (check_id_order(split, id, *pos) == 2)
-		return (free_vector(split), 2);
+		return (2);
 	(*pos)++;
 	if (!ft_findstr(*split, "F") || !ft_findstr(*split, "C"))
 		return (free_vector(split), check_id_other(line, id, (*pos) - 1));

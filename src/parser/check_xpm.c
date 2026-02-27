@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_xpm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:03:13 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/26 19:22:57 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 13:07:03 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	check_xpm(char *texture)
 		if (line && *line != '\n' && count == 1)
 		{
 			if (check_xpm_size_settings(line) == 1)
-				return (get_next_line(fd, 2), 1);
+				return (free(line), get_next_line(fd, 2), 1);
 			break ;
 		}
 		free(line);
