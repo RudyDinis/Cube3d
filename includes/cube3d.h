@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 19:11:38 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 11:04:26 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ typedef struct s_map
 	int			width;
 }	t_map;
 
-
 typedef struct s_data
 {
 	void		*mlx;
@@ -159,42 +158,42 @@ typedef struct s_data
 	t_map_data	*data_map;
 }	t_data;
 
-int		close_hook(void *param);
-int		key_press(int keycode, t_data *data);
-int		key_release(int keycode, t_data *data);
-int		loop_hook(t_data *data);
-int		can_moove(t_data *data, double dx, double dy);
-int		load_img(t_data *data);
-int		door_is_solid(t_data *data, t_ray *vars, char p);
-int		mouse_move_hook(int x, int y, void *param);
-int		raycasting2(t_data *data, t_ray *vars);
-int		raycasting3(t_data *data, t_ray *vars);
-int		get_height(char **map);
-int		get_width(char **map);
+int			close_hook(void *param);
+int			key_press(int keycode, t_data *data);
+int			key_release(int keycode, t_data *data);
+int			loop_hook(t_data *data);
+int			can_moove(t_data *data, double dx, double dy);
+int			load_img(t_data *data);
+int			door_is_solid(t_data *data, t_ray *vars, char p);
+int			mouse_move_hook(int x, int y, void *param);
+int			raycasting2(t_data *data, t_ray *vars);
+int			raycasting3(t_data *data, t_ray *vars);
+int			get_height(char **map);
+int			get_width(char **map);
 
-void	init_player(t_data *data);
-void	draw_player_arrow(t_data *data, int width);
-void	raycasting(t_data *data);
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-void	load_minimap(t_data *data);
-void	render_frame(t_data *data);
-void	door_draw_wall(t_data *data, t_ray *vars, char p);
-void	exit_game(t_data *data);
-void	free_map(char **map, int height);
-void	*error_handler(t_data *data, int id);
-void	interact_door(t_data *data);
+void		init_player(t_data *data);
+void		draw_player_arrow(t_data *data, int width);
+void		raycasting(t_data *data);
+void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void		load_minimap(t_data *data);
+void		render_frame(t_data *data);
+void		door_draw_wall(t_data *data, t_ray *vars, char p);
+void		exit_game(t_data *data);
+void		free_map(char **map, int height);
+void		*error_handler(t_data *data, int id);
+void		interact_door(t_data *data);
 
-int		check_valid_char(char c);
-int		check_xpm(char *texture);
-int		check_map_extension(char *path);
-int		check_id_order(char **split, t_id *id, int pos);
-t_id	*malloc_id(void);
+int			check_valid_char(char c);
+int			check_xpm(char *texture);
+int			check_map_extension(char *path);
+int			check_id_order(char **split, t_id *id, int pos);
+t_id		*malloc_id(void);
 t_map_data	*malloc_data(void);
-void	check_identifier(int fd, t_id *id);
-void	skip_newline(char **line, int fd);
-void	replace_space(char *copy, size_t *j, size_t i);
-void	free_id(t_id *id, int param);
+void		check_identifier(int fd, t_id *id);
+void		skip_newline(char **line, int fd);
+void		replace_space(char *copy, size_t *j, size_t i);
+void		free_id(t_id *id, int param);
 t_map_data	*check_map(char *map);
-char	*fill_map(int fd, char *map, t_id *id);
-size_t	get_map_size(int fd, t_id *id);
+char		*fill_map(int fd, char *map, t_id *id);
+size_t		get_map_size(int fd, t_id *id);
 #endif

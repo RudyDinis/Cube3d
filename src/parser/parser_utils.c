@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 10:51:47 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/26 19:23:15 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 11:15:23 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,27 +103,4 @@ void	free_data(t_map_data *data)
 	free_vector(data->f_color);
 	free_vector(data->map);
 	free(data);
-}
-
-void	free_id(t_id *id, int param)
-{
-	int	i;
-
-	i = 0;
-	while (i < 6)
-	{
-		if (id->id)
-			free(id->id[i]);
-		if (id->done && id->done[i])
-			free(id->done[i]);
-		i++;
-	}
-	if (id->id)
-		free(id->id);
-	if (id->done)
-		free(id->done);
-	if (id->data && param)
-		free_data(id->data);
-	if (id)
-		free(id);
 }

@@ -139,31 +139,3 @@ int	check_id_cardinal(char *line, int *pos, t_id *id)
 		return (free_vector(split), check_id_other(line, id, (*pos) - 1));
 	return (fd = 0, check_id_cardinal_2(split, fd, id, (*pos) - 1));
 }
-
-void	check_identifier(int fd, t_id *id)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	line = get_next_line(fd, 0);
-	while (line && i < 6)
-	{
-		while (*line == '\n')
-		{
-			free(line);
-			line = get_next_line(fd, 0);
-			if (!line)
-				break ;
-		}
-		if (check_id_cardinal(line, &i, id))
-			return (free(line), get_next_line(fd, 2), free_id(id, 1), exit(1));
-		free(line);
-		line = get_next_line(fd, 0);
-	}
-	if (line)
-		free(line);
-	if (i != 6)
-		return (ft_printf_error("Error\nWrong number of identifier\n"),
-			free_id(id, 1), close(fd), exit(1));
-}

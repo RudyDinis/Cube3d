@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:06:10 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/26 14:23:33 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/27 10:30:15 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cube3d.h"
-
-// TODO faire gaffe à ne pas accepter les directories
 
 int	closed_condition(char **s, int i, size_t y)
 {

@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 14:29:56 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 19:13:55 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 11:00:33 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,27 @@ void	raycasting(t_data *data)
 	}
 }
 
+int	rgb_to_hex(t_data *data, int id)
+{
+	if (id == 0)
+		return (ft_atoi(data->data_map->c_color[0]) << 16
+			| ft_atoi(data->data_map->c_color[1]) << 8
+			| ft_atoi(data->data_map->c_color[2]));
+	else
+		return (ft_atoi(data->data_map->f_color[0]) << 16
+			| ft_atoi(data->data_map->f_color[1]) << 8
+			| ft_atoi(data->data_map->f_color[2]));
+}
+
 void	render_frame(t_data *data)
 {
 	int	x;
 	int	y;
+	int	floor;
+	int	top;
 
+	floor = rgb_to_hex(data, 1);
+	top = rgb_to_hex(data, 0);
 	y = 0;
 	while (y < 1080)
 	{
@@ -94,9 +110,9 @@ void	render_frame(t_data *data)
 		while (x < 1920)
 		{
 			if (y < 1080 / 2)
-				my_mlx_pixel_put(&data->vision, x, y, 0x77b5fe);
+				my_mlx_pixel_put(&data->vision, x, y, top);
 			else
-				my_mlx_pixel_put(&data->vision, x, y, 0x000000);
+				my_mlx_pixel_put(&data->vision, x, y, floor);
 			x++;
 		}
 		y++;

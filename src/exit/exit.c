@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 19:15:38 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 17:17:33 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 10:27:59 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ void	free_map(char **map, int height)
 	free(map);
 }
 
+void	exit_wall(t_data *data)
+{
+	if (data->minimap->wall_so)
+		mlx_destroy_image(data->mlx, data->minimap->wall_so);
+	if (data->minimap->wall_ea)
+		mlx_destroy_image(data->mlx, data->minimap->wall_ea);
+	if (data->minimap->wall_we)
+		mlx_destroy_image(data->mlx, data->minimap->wall_we);
+}
+
 void	exit2(t_data *data)
 {
 	if (data->player)
@@ -32,8 +42,6 @@ void	exit2(t_data *data)
 			mlx_destroy_image(data->mlx, data->player->data_img.img);
 		free(data->player);
 	}
-	if (data->minimap)
-		free(data->minimap);
 	if (data->vision.img)
 		mlx_destroy_image(data->mlx, data->vision.img);
 	if (data->data_map)
@@ -47,6 +55,9 @@ void	exit2(t_data *data)
 		free(data->data_map->we_texture);
 		free(data->data_map);
 	}
+	exit_wall(data);
+	if (data->minimap)
+		free(data->minimap);
 }
 
 void	exit_game(t_data *data)

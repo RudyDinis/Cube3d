@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 14:37:31 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 19:21:37 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 10:31:53 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ void	raycasting22(t_ray *vars, int *face)
 	if (vars->side == 0)
 	{
 		if (cos(vars->angle) > 0)
-			*face = 2;
-		else
 			*face = 3;
+		else
+			*face = 2;
 		vars->hitpos = fmod(vars->y + 32.0, 32.0) / 32.0;
 	}	
 	else
 	{
 		if (sin(vars->angle) > 0)
-			*face = 1;
-		else
 			*face = 0;
+		else
+			*face = 1;
 		vars->hitpos = fmod(vars->x + 32.0, 32.0) / 32.0;
 	}
 }

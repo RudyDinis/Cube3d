@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:04:41 by bbouarab          #+#    #+#             */
-/*   Updated: 2026/02/26 14:14:13 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/27 11:11:29 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ size_t	get_map_size(int fd, t_id *id)
 		if (len > 100000)
 		{
 			ft_printf_error("Error\nMap length exceeded 100k characters\n");
-			return (free(map), free_id(id, 1), get_next_line(fd, 2), exit(1), 1);
+			return (free(map), free_id(id, 1),
+				get_next_line(fd, 2), exit(1), 1);
 		}
 		free(map);
 		map = get_next_line(fd, 0);

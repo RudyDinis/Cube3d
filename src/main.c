@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:18:07 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/26 17:16:53 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 11:08:42 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ int	init(t_data *data, t_map_data *map_data)
 	return (0);
 }
 
+void	main2(t_data *data)
+{
+	raycasting(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->vision.img, 0, 0);
+	draw_player_arrow(data, 0);
+	load_minimap(data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
+	mlx_loop_hook(data->mlx, loop_hook, data);
+	mlx_hook(data->mlx_win, 17, 0, close_hook, data);
+	mlx_mouse_move(data->mlx, data->mlx_win, 1920 / 2, 1080 / 2);
+	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move_hook, data);
+	mlx_loop(data->mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data		*data;
@@ -77,17 +92,6 @@ int	main(int argc, char **argv)
 	if (load_img(data) == 1)
 		return (1);
 	init_player(data);
-	raycasting(data);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->vision.img, 0, 0);
-	draw_player_arrow(data, 0);
-	load_minimap(data);
-	mlx_mouse_hide(data->mlx, data->mlx_win);
-	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
-	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
-	mlx_loop_hook(data->mlx, loop_hook, data);
-	mlx_hook(data->mlx_win, 17, 0, close_hook, data);
-	mlx_mouse_move(data->mlx, data->mlx_win, 1920 / 2, 1080 / 2);
-	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move_hook, data);
-	mlx_loop(data->mlx);
+	main2(data);
 	return (0);
 }
