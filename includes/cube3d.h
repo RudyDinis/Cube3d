@@ -6,7 +6,7 @@
 /*   By: rdinis <rdinis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/27 11:04:26 by rdinis           ###   ########.fr       */
+/*   Updated: 2026/02/27 11:30:06 by rdinis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int			raycasting2(t_data *data, t_ray *vars);
 int			raycasting3(t_data *data, t_ray *vars);
 int			get_height(char **map);
 int			get_width(char **map);
+int			check_id_cardinal(char *line, int *pos, t_id *id);
 
 void		init_player(t_data *data);
 void		draw_player_arrow(t_data *data, int width);
@@ -182,6 +183,7 @@ void		exit_game(t_data *data);
 void		free_map(char **map, int height);
 void		*error_handler(t_data *data, int id);
 void		interact_door(t_data *data);
+void		free_data(t_map_data *data);
 
 int			check_valid_char(char c);
 int			check_xpm(char *texture);

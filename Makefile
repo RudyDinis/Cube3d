@@ -6,7 +6,7 @@ SRC =	src/main.c \
 		src/player/player.c src/player/view.c src/player/moove.c \
 		src/eventListener/event.c src/eventListener/mouse.c \
 		src/exit/exit.c src/exit/error_handler.c \
-		src/parser/checker.c src/parser/check_id.c src/parser/check_map.c src/parser/check_xpm.c src/parser/parser_utils.c
+		src/parser/checker.c src/parser/check_id.c src/parser/check_map.c src/parser/check_xpm.c src/parser/parser_utils.c src/parser/parser_utils2.c
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 CC = cc -std=c11
