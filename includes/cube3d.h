@@ -6,7 +6,7 @@
 /*   By: bbouarab <bbouarab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 17:24:03 by rdinis            #+#    #+#             */
-/*   Updated: 2026/02/27 13:21:18 by bbouarab         ###   ########.fr       */
+/*   Updated: 2026/02/27 13:24:42 by bbouarab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@
 
 # define MALLOC_ERR "Error\nMalloc Error\n"
 # define IMG_ERR "Error\nAn error occured while loading img\n"
-# define XPM_PARAM "XPM file: wrong number of parameters\n"
-# define XPM_TEXTURE "XPM file: texture size not supported\n"
-# define XPM_COLOR "XPM file: incorrect number of color\n"
-# define XPM_PIXEL "XPM file: number of character per pixel not supported\n"
-# define XPM_NUM "XPM file: numeric arguments required\n"
+# define XPM_PARAM "XPM file: wrong number of parameters"
+# define XPM_TEXTURE "XPM file: texture size not supported"
+# define XPM_COLOR "XPM file: incorrect number of color"
+# define XPM_PIXEL "XPM file: number of character per pixel not supported"
+# define XPM_NUM "XPM file: numeric arguments required"
 
 typedef struct s_ray
 {
